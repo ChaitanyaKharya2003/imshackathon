@@ -1,3 +1,4 @@
+<%- include('./partials/header'); -%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -104,7 +105,7 @@
   </head>
   <body class="text-center">
     <main class="form-signin w-25 m-auto mt-5">
-      <form>
+      <form action="/signin" method="post">
         <img
           class="mb-4"
           src="/docs/5.2/assets/brand/bootstrap-logo.svg"
@@ -116,6 +117,7 @@
 
         <div class="form-floating">
           <input
+            name="email"
             type="email"
             class="form-control"
             id="floatingInput"
@@ -125,6 +127,7 @@
         </div>
         <div class="form-floating">
           <input
+            name="pass"
             type="password"
             class="form-control"
             id="floatingPassword"
@@ -142,3 +145,4 @@
     </main>
   </body>
 </html>
+
