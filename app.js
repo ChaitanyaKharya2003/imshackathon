@@ -4,7 +4,7 @@ const { createPool } = require("mysql");
 const bodyParser = require("body-parser");
 
 const app = express();
- 
+
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,30 +17,55 @@ const pool = createPool({
   connectionLimit: 10,
 });
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/book", (req, res) => {
+
+  
+
+  // res.redirect("/booked");
+  res.render("userDetail");
 });
-
-// --------------------------------------------------
-
-// SQL CODE
 
 app.post("/book", (req, res) => {
+
+  const name = req.body.name;
+  const bhk = req.body.bhk;
+  const area = req.body.area;
+  const address = req.body.address;
+  const furnishing = req.body.furnishing;
+  const rent = req.body.rent;
+  const floor = req.body.floor;
+
+  const ownName = req.body.ownerName;
+  const ownNumber = req.body.ownerMobile;
+  const ownEmail = req.body.ownerEmail;
+  const ownID = req.body.ownerId;
+
+  const id = req.body.bookButton;
+
+  pool.query(`update Flat set Status_flat = "Booked" where Flat_ID = ${id};`,(err) => {
+    if(err){
+      console.log(err);
+    }else{
+      console.log("Success updated Status");
+    }
+  });
+
+
   res.redirect("/booked");
 });
+
 app.post("/visited", (req, res) => {});
+
 app.post("/delete", (req, res) => {
-  res.redirect("/available");
-});
 
-// --------------------------------------------------
+  const id = req.body.deleteButton;
+  pool.query(`DELETE FROM Flat WHERE Flat_ID = ${id}`,(err) => {
+    if(err){
+      console.log(err);
+    }
+  });
 
-app.get("/signup", (req, res) => {
-  res.render("signup");
-});
-
-app.get("/signin", (req, res) => {
-  res.render("signin");
+  res.redirect("/available"); 
 });
 
 app.post("/signin", (req, res) => {
@@ -64,33 +89,39 @@ app.post("/signin", (req, res) => {
   });
 });
 
-app.get("/available", (req, res) => {
+app.post("/bookingDetails",(req,res) => {
+  const buyerName = req.body.buyerName;
+  const idProof = req.body.idProof;
+  const flatID = req.body.flatID;
+  const phnNumber = req.body.phnNumber;
+  const uemail = req.body.uemail;
+  const aadharNumber = req.body.aadharNumber;
 
-  pool.query(`select * from Flat`, (err, result) => {
-    if (err) {
-      return console.log(err);
-      } 
-      
-      
-      res.render("availableFlats", {newListItems: result});
 
-    return console.log(result);
-  });
+  const w1Name = req.body.w1Name;
+  const w1Phone = req.body.w1Phone;
+  const w1Email = req.body.w1Email;
+  const w2Phone = req.body.w2Phone;
+  const w2Email = req.body.w2Email;
 
+
+  const date = req.body.date;
+  const amount = req.body.amount;
+  const agreementID = req.body.agreementID;
 
   
+
+  res.redirect("/booked");
 });
 
-app.get("/booked", (req, res) => {
-  res.render("bookedFlats");
-});
 
-app.get("/addNewFlat", (req, res) => {
-  res.render("addNewFlat");
+// ------------------------------------------------------------------------------
+
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
 app.post("/addNewFlat", (req, res) => {
-
   const name = req.body.name;
   const bhk = req.body.bhk;
   const area = req.body.area;
@@ -99,16 +130,73 @@ app.post("/addNewFlat", (req, res) => {
   const rent = req.body.rent;
   const floor = req.body.floor;
 
+  const ownName = req.body.ownerName;
+  const ownNumber = req.body.ownerMobile;
+  const ownEmail = req.body.ownerEmail;
+  const ownID = req.body.ownerId;
+
+
+
   pool.query(
-    `insert into Flat values ("${name}","${address}", "${bhk}", "${furnishing}", null ,${floor},"Available",0,${rent},${area})`
-  ,(err) => {
-    if(!err){
-      console.log("Success Adding To database!");
+    `insert into Flat values ("${name}","${address}", "${bhk}", "${furnishing}", null ,${floor},"Available",0,${rent},${area})`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Success Adding To database!");
+      }
     }
-    
-  });
+  );
 
   res.redirect("/");
+});
+
+
+
+app.get("/signin", (req, res) => {
+  res.render("signin");
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
+app.get("/available", (req, res) => {
+  pool.query(
+    `select * from Flat where Status_flat = "Available"`,
+    (err, result) => {
+      if (err) {
+        return console.log(err);
+      }
+
+      res.render("availableFlats", { newListItems: result });
+    }
+  );
+});
+
+app.get("/booked", (req, res) => {
+  pool.query(
+    `select * from Flat where Status_flat = "Booked"`,
+    (err, result) => {
+      if (err) {
+        return console.log(err);
+      }
+
+      res.render("bookedFlats", { newListItems: result });
+    }
+  );
+});
+
+app.get("/addNewFlat", (req, res) => {
+  res.render("addNewFlat");
+});
+
+app.get("/visited", (req, res) => {
+  res.render("visited");
+});
+
+app.get("/payments", (req, res) => {
+  res.render("payments");
 });
 
 app.listen(3000, () => {
