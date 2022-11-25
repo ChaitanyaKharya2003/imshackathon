@@ -65,7 +65,20 @@ app.post("/signin", (req, res) => {
 });
 
 app.get("/available", (req, res) => {
-  res.render("availableFlats");
+
+  pool.query(`select * from Flat`, (err, result) => {
+    if (err) {
+      return console.log(err);
+      } 
+      
+      
+      res.render("availableFlats", {newListItems: result});
+
+    return console.log(result);
+  });
+
+
+  
 });
 
 app.get("/booked", (req, res) => {
@@ -86,13 +99,13 @@ app.post("/addNewFlat", (req, res) => {
   const rent = req.body.rent;
   const floor = req.body.floor;
 
-
-  console.log(name,bhk,area,address,furnishing,rent,floor);
-
   pool.query(
-    `insert into Flat values ("${name}","${address}", "${bhk}", "${furnishing}", 100 ,$(floor),"Available",0,${rent},${area}`
+    `insert into Flat values ("${name}","${address}", "${bhk}", "${furnishing}", null ,${floor},"Available",0,${rent},${area})`
   ,(err) => {
-    console.log(err);
+    if(!err){
+      console.log("Success Adding To database!");
+    }
+    
   });
 
   res.redirect("/");

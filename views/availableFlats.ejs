@@ -4,28 +4,30 @@
 
 <div class="row mt-5 p-5">
 
+  <% newListItems.forEach((element) =>{ %>
 
   <div class="col-md-12 mb-2 align-self-start">
     <div class="card shadow p-3 mb-5 bg-white rounded">
       <div class="card-body cont">
         <div class="details">
-        <h2 class="center">DLF Capital Greens</h2>
-        <h5>Configration: 3,4,5 BHK Apartments</h5>
-        <h5>Address: Dwarka Mor, South Dehli,New Delhi</h5>
-        <h5>Rent: 50,000 Rs</h5>
-        <h5>Furnished: No</h5>
+        <h2 class="center"><%= element.Namee %></h2>
+        <h5>Configration: <%= element.Rooms %></h5>
+        <h5>Address: <%= element.address %></h5>
+        <h5>Rent: <%= element.Rent_pm %> Rs</h5>
+        <h5>Furnished: <%= element.Furnishing %></h5>
         </div>
+
         <div class="my-3">
             <form action="/book" method="post"><button class="btn btn-danger">Book</button> </form>
             <form action="/visited" method="post"><button class="btn btn-primary">Visited</button> </form>
             <form action="/delete" method="post"><button class="btn btn-warning">Delete</button> </form>
-
         </div>
 
       </div>
     </div>
   </div>
 
+  <% });%>
 
 </div>
 
