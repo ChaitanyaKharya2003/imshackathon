@@ -18,9 +18,9 @@
         </div>
 
         <div class="my-3">
-            <form action="/book" method="post"><button class="btn btn-danger">Book</button> </form>
-            <form action="/visited" method="post"><button class="btn btn-primary">Visited</button> </form>
-            <form action="/delete" method="post"><button class="btn btn-warning">Delete</button> </form>
+            <form action="/book" method="post"><button name="bookButton" class="btn btn-danger" value="<%=element.Flat_ID%>" > Book</button> </form>
+            <form action="/visited" method="get"><button class="btn btn-primary">Visited</button> </form>
+            <form action="/delete" method="post"><button name="deleteButton" class="btn btn-warning" value="<%=element.Flat_ID%>">Delete</button> </form>
         </div>
 
       </div>

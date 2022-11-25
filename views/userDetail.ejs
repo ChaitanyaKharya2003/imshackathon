@@ -1,0 +1,216 @@
+<%- include('./partials/header'); -%>
+
+<h1 class="center m-1">Enter Details of Buyer </h1>
+
+<main class="form-signin w-25 m-auto mt-5">
+  <form action="/bookingDetails" method="post">
+    <div class="form-floating">
+      <input
+        name="buyerName"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Buyer Name"
+        value=""
+      />
+      <label for="floatingInput">Buyer Name</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="idProof"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="ID Proof"
+        value=""
+      />
+      <label for="floatingInput">ID Proof</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="flatID"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Flat ID"
+        value=""
+      />
+      <label for="floatingInput">Flat ID</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="phnNumber"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Phone Number"
+        value=""
+      />
+      <label for="floatingInput">Phone Number</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="uemail"
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Email"
+        value=""
+      />
+      <label for="floatingInput">Email</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="aadharNumber"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Aadhar Number"
+        value=""
+      />
+      <label for="floatingInput">Aadhar Number</label>
+    </div>
+
+    <h1>Witness Details</h1>
+
+    <div class="form-floating">
+      <input
+        name="w1Name"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Witness 1 Name"
+        value=""
+      />
+      <label for="floatingInput">Witness 1 Name</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="w1Phone"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Witness 1 Phone Number"
+        value=""
+      />
+      <label for="floatingInput">Witness 1 Phone Number</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="w1Email"
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="name@example.com"
+        value=""
+      />
+      <label for="floatingInput">Witness 1 Email</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="w2Name"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Witness 2 Name"
+        value=""
+      />
+      <label for="floatingInput">Witness 2 Name</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="w2Phone"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Witness 2 Phone Number"
+        value=""
+      />
+      <label for="floatingInput">Witness 2 Phone Number</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="w2Email"
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Witness 2 Email"
+        value=""
+      />
+      <label for="floatingInput">Witness 2 Email</label>
+    </div>
+    
+
+    <h1>Rent Agreement</h1>
+
+    <div class="form-floating">
+      <input
+        name="duration"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Duration"
+        value=""
+      />
+      <label for="floatingInput">Duration</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="date"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Date"
+        value=""
+      />
+      <label for="floatingInput">Date</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="amount"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Amount"
+        value=""
+      />
+      <label for="floatingInput">Amount</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        name="agreementID"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Agreement ID"
+        value=""
+      />
+      <label for="floatingInput">Agreement ID</label>
+    </div>
+    
+
+
+
+    <button class="w-100 mt-3 btn btn-lg btn-primary" type="submit">
+      Add Details
+    </button>
+  
+
+
+  </form>
+</main>
+
+<%- include('./partials/footer'); -%>

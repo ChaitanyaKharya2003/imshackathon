@@ -3,21 +3,23 @@
 <h1 class="center">Booked Flats</h1>
 
 <div class="row mt-5 p-5">
+  <% newListItems.forEach((element) =>{ %>
+
   <div class="col-md-12 mb-2 align-self-start">
     <div class="card shadow p-3 mb-5 bg-white rounded">
       <div class="card-body cont">
         <div class="details">
-          <h2 class="center">DLF Capital Greens</h2>
-          <h5>Seller Name: Parth</h5>
-          <h5>Buyer Name: Paras</h5>
-          <p>Buying Date: 22/11/2022</p>
-          <p>Address: Dwarka Mor, South Dehli,New Delhi</p>
-          <p>Duration: 2 years</p>
-          <p>Rent: 50,000 Rs</p>
+          <h2 class="center"><%= element.Namee %></h2>
+          <h5>Configration: <%= element.Rooms %></h5>
+          <h5>Address: <%= element.Address %></h5>
+          <h5>Rent: <%= element.Rent_pm %> Rs</h5>
+          <h5>Furnished: <%= element.Furnishing %></h5>
         </div>
       </div>
     </div>
   </div>
+
+  <% });%>
 </div>
 
 <%- include('./partials/footer'); -%>
