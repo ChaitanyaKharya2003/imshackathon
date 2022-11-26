@@ -12,21 +12,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const pool = createPool({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "Vishal@2004",
   database: "Flat_Managment",
   connectionLimit: 10,
 });
 
 app.get("/book", (req, res) => {
-
-  
-
   // res.redirect("/booked");
   res.render("userDetail");
 });
 
 app.post("/book", (req, res) => {
-
   const name = req.body.name;
   const bhk = req.body.bhk;
   const area = req.body.area;
@@ -42,14 +38,16 @@ app.post("/book", (req, res) => {
 
   const id = req.body.bookButton;
 
-  pool.query(`update Flat set Status_flat = "Booked" where Flat_ID = ${id};`,(err) => {
-    if(err){
-      console.log(err);
-    }else{
-      console.log("Success updated Status");
+  pool.query(
+    `update Flat set Status_flat = "Booked" where Flat_ID = ${id};`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Success updated Status");
+      }
     }
-  });
-
+  );
 
   res.redirect("/booked");
 });
@@ -57,15 +55,14 @@ app.post("/book", (req, res) => {
 app.post("/visited", (req, res) => {});
 
 app.post("/delete", (req, res) => {
-
   const id = req.body.deleteButton;
-  pool.query(`DELETE FROM Flat WHERE Flat_ID = ${id}`,(err) => {
-    if(err){
+  pool.query(`DELETE FROM Flat WHERE Flat_ID = ${id}`, (err) => {
+    if (err) {
       console.log(err);
     }
   });
 
-  res.redirect("/available"); 
+  res.redirect("/available");
 });
 
 app.post("/signin", (req, res) => {
@@ -89,7 +86,7 @@ app.post("/signin", (req, res) => {
   });
 });
 
-app.post("/bookingDetails",(req,res) => {
+app.post("/bookingDetails", (req, res) => {
   const buyerName = req.body.buyerName;
   const idProof = req.body.idProof;
   const flatID = req.body.flatID;
@@ -97,23 +94,18 @@ app.post("/bookingDetails",(req,res) => {
   const uemail = req.body.uemail;
   const aadharNumber = req.body.aadharNumber;
 
-
   const w1Name = req.body.w1Name;
   const w1Phone = req.body.w1Phone;
   const w1Email = req.body.w1Email;
   const w2Phone = req.body.w2Phone;
   const w2Email = req.body.w2Email;
 
-
   const date = req.body.date;
   const amount = req.body.amount;
   const agreementID = req.body.agreementID;
 
-  
-
   res.redirect("/booked");
 });
-
 
 // ------------------------------------------------------------------------------
 
@@ -135,8 +127,6 @@ app.post("/addNewFlat", (req, res) => {
   const ownEmail = req.body.ownerEmail;
   const ownID = req.body.ownerId;
 
-
-
   pool.query(
     `insert into Flat values ("${name}","${address}", "${bhk}", "${furnishing}", null ,${floor},"Available",0,${rent},${area})`,
     (err) => {
@@ -150,8 +140,6 @@ app.post("/addNewFlat", (req, res) => {
 
   res.redirect("/");
 });
-
-
 
 app.get("/signin", (req, res) => {
   res.render("signin");
@@ -196,7 +184,38 @@ app.get("/visited", (req, res) => {
 });
 
 app.get("/payments", (req, res) => {
-  res.render("payments");
+  pool.query(`call Rent_Sum(@total)`);
+  pool.query(`call Profit1(@profit)`);
+
+  let sql1 = `call payment()`;
+
+  var totalAmount;
+  var profitEarned;
+
+  pool.query(sql1, true, (error, results) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    var arr = results[0];
+
+    console.log(arr[0]);
+    res.render("payments", {
+      totAmount: arr[0].sum_s,
+      profEarned: arr[0].profit,
+    });
+  });
+
+  // pool.query(sql2, true, (error, results) => {
+  //   if (error) {
+  //     return console.error(error.message);
+  //   }
+  //   var arr2 = results[0];
+
+  //   profitEarned = arr[0].profit;
+  //   console.log(arr[0].profit);
+  // });
+
+  
 });
 
 app.listen(3000, () => {
