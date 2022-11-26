@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const pool = createPool({
   host: "localhost",
   user: "root",
-  password: "Vishal@2004",
+  password: "",
   database: "Flat_Managment",
   connectionLimit: 10,
 });
@@ -49,7 +49,7 @@ app.post("/book", (req, res) => {
     }
   );
 
-  res.redirect("/booked");
+  res.render("userDetail");
 });
 
 app.post("/visited", (req, res) => {});
@@ -93,16 +93,47 @@ app.post("/bookingDetails", (req, res) => {
   const phnNumber = req.body.phnNumber;
   const uemail = req.body.uemail;
   const aadharNumber = req.body.aadharNumber;
+  const transactionID = req.body.transactionID;
+  const lesseeID = req.body.lesseeID;
 
   const w1Name = req.body.w1Name;
   const w1Phone = req.body.w1Phone;
   const w1Email = req.body.w1Email;
+  const w2Name = req.body.w2Name;
   const w2Phone = req.body.w2Phone;
   const w2Email = req.body.w2Email;
 
+  const duration = req.body.duration;
   const date = req.body.date;
   const amount = req.body.amount;
   const agreementID = req.body.agreementID;
+
+  pool.query(
+    `insert into Lessee values ("${buyerName}" , ${aadharNumber}, "${idProof}", ${flatID} , ${agreementID} ,"${phnNumber}", "${uemail}", null , ${transactionID} )`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
+
+  // pool.query(
+  //   `insert into witness values("${w1Name}","${w2Name}","${w1Phone}","${w2Phone}","${w1Email}","${w2Email}",${agreementID}`,
+  //   (err) => {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // );
+
+  // pool.query(
+  //   `insert into Rent_Agreement values("${agreementID}","${duration}","${date}",${amount})`,
+  //   (err) => {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // );
 
   res.redirect("/booked");
 });
@@ -129,6 +160,17 @@ app.post("/addNewFlat", (req, res) => {
 
   pool.query(
     `insert into Flat values ("${name}","${address}", "${bhk}", "${furnishing}", null ,${floor},"Available",0,${rent},${area})`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Success Adding To database!");
+      }
+    }
+  );
+
+  pool.query(
+    `insert into lessor values("${ownName}","${ownNumber}","${ownEmail}",${ownID});`,
     (err) => {
       if (err) {
         console.log(err);
@@ -214,8 +256,6 @@ app.get("/payments", (req, res) => {
   //   profitEarned = arr[0].profit;
   //   console.log(arr[0].profit);
   // });
-
-  
 });
 
 app.listen(3000, () => {
